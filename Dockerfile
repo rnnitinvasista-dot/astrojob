@@ -24,4 +24,5 @@ COPY . .
 EXPOSE 8000
 
 # Run the application (pointing to backend/main.py)
-CMD ["gunicorn", "--chdir", "backend", "main:app", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000"]
+# We use shell form to allow $PORT variable expansion
+CMD gunicorn backend.main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
