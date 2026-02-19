@@ -23,6 +23,6 @@ COPY . .
 # Expose port 8000
 EXPOSE 8000
 
-# Run the application (pointing to backend/main.py)
-# We use shell form to allow $PORT variable expansion
-CMD gunicorn backend.main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+# Run the application
+# We use --pythonpath to ensure gunicorn finds main.py and nadi_core.py inside the backend folder
+CMD gunicorn --pythonpath backend main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
